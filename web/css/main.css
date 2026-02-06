@@ -149,8 +149,21 @@ body {
   padding: 0.5rem 0;
   transition: color 0.3s;
 }
+.navbar .nav-menu .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #00ff88;
+  transition: width 0.3s;
+}
 .navbar .nav-menu .nav-link:hover {
   color: #00ff88;
+}
+.navbar .nav-menu .nav-link:hover::after {
+  width: 100%;
 }
 .navbar .nav-menu .btn {
   background: linear-gradient(135deg, #0078d7, #00b4d8);
@@ -160,35 +173,85 @@ body {
 }
 .navbar .mobile-toggle {
   display: none;
-  background: none;
-  border: none;
-  color: #f8f9fa;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 8px;
+  width: 50px;
+  height: 50px;
   font-size: 1.5rem;
+  color: #f8f9fa;
   cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+.navbar .mobile-toggle:hover {
+  background: rgba(0, 255, 136, 0.2);
+}
+.navbar .mobile-toggle.active {
+  background: #00ff88;
+  color: #050811;
 }
 @media (max-width: 768px) {
   .navbar .mobile-toggle {
-    display: block;
+    display: flex !important;
   }
-}
-@media (max-width: 768px) {
   .navbar .nav-menu {
+    display: none;
     position: fixed;
     top: 80px;
     left: 0;
     width: 100%;
-    background: #050811;
+    height: calc(100vh - 80px);
+    background: rgba(5, 8, 17, 0.98);
+    -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
     flex-direction: column;
     align-items: center;
-    padding: 1.5rem 0;
+    justify-content: flex-start;
+    padding: 2rem 0;
     gap: 1.5rem;
-    transform: translateY(-100%);
-    opacity: 0;
-    transition: all 0.3s ease;
+    z-index: 999;
+    border-top: 2px solid rgba(0, 255, 136, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    overflow-y: auto;
   }
   .navbar .nav-menu.active {
-    transform: translateY(0);
+    display: flex;
+    animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .navbar .nav-menu .nav-link {
+    font-size: 1.2rem;
+    padding: 0.75rem 2rem;
+    width: 80%;
+    text-align: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+  .navbar .nav-menu .nav-link:hover {
+    background: rgba(0, 255, 136, 0.1);
+    transform: translateX(5px);
+  }
+  .navbar .nav-menu .nav-link:hover::after {
+    display: none;
+  }
+  .navbar .nav-menu .btn {
+    margin-top: 1rem;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    width: 80%;
+    justify-content: center;
+  }
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -287,7 +350,6 @@ body {
   left: 0;
   width: 100%;
   height: 8px;
-  background: rgba(0, 255, 136, 0.3);
   z-index: -1;
   border-radius: 4px;
 }
@@ -382,14 +444,16 @@ body {
   display: flex;
   flex-direction: column;
 }
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .story .story-content {
     flex-direction: row;
     gap: 4rem;
+    align-items: flex-start;
   }
 }
 .story .story-content .story-text {
   flex: 1;
+  min-width: 0;
 }
 .story .story-content .story-text .story-paragraph {
   margin-bottom: 2rem;
@@ -433,8 +497,9 @@ body {
 .story .story-content .story-visual {
   flex: 0 0 300px;
   margin-top: 2rem;
+  align-self: flex-start;
 }
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .story .story-content .story-visual {
     margin-top: 0;
   }
@@ -495,180 +560,197 @@ body {
 .enemies {
   padding: 4rem 0;
   background: #050811;
-}
-.enemies .section-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-.enemies .enemies-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-.enemies .enemies-grid .enemy-item.enemy-angrylogs .enemy-icon::before {
-  content: "🪵";
-}
-.enemies .enemies-grid .enemy-item.enemy-angrylogs .enemy-name::after {
-  content: "AngryLogs";
-}
-.enemies .enemies-grid .enemy-item.enemy-angrylogs .enemy-rarity {
-  color: #8b4513;
-  font-weight: 600;
-}
-.enemies .enemies-grid .enemy-item.enemy-angrylogs::after {
-  background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(139, 69, 19, 0.05));
-}
-.enemies .enemies-grid .enemy-item.enemy-brown-bear .enemy-icon::before {
-  content: "🐻";
-}
-.enemies .enemies-grid .enemy-item.enemy-brown-bear .enemy-name::after {
-  content: "Oso Pardo";
-}
-.enemies .enemies-grid .enemy-item.enemy-brown-bear .enemy-rarity {
-  color: #8b4513;
-  font-weight: 600;
-}
-.enemies .enemies-grid .enemy-item.enemy-brown-bear::after {
-  background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(139, 69, 19, 0.05));
-}
-.enemies .enemies-grid .enemy-item.enemy-black-bear .enemy-icon::before {
-  content: "🐾";
-}
-.enemies .enemies-grid .enemy-item.enemy-black-bear .enemy-name::after {
-  content: "Oso Negro";
-}
-.enemies .enemies-grid .enemy-item.enemy-black-bear .enemy-rarity {
-  color: #000000;
-  font-weight: 600;
-}
-.enemies .enemies-grid .enemy-item.enemy-black-bear::after {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05));
-}
-.enemies .enemies-grid .enemy-item.enemy-golden-boss .enemy-icon::before {
-  content: "👑";
-}
-.enemies .enemies-grid .enemy-item.enemy-golden-boss .enemy-name::after {
-  content: "Jefe Dorado";
-}
-.enemies .enemies-grid .enemy-item.enemy-golden-boss .enemy-rarity {
-  color: #ffd700;
-  font-weight: 600;
-}
-.enemies .enemies-grid .enemy-item.enemy-golden-boss::after {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
-}
-.enemies .enemies-grid .enemy-item {
-  background: rgba(10, 14, 23, 0.8);
-  border-radius: 15px;
-  padding: 1.5rem;
-  text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 255, 136, 0.1);
   position: relative;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px);
 }
-.enemies .enemies-grid .enemy-item::after {
+.enemies::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  background-image: radial-gradient(circle at 30% 20%, rgba(0, 255, 136, 0.03) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(0, 180, 216, 0.03) 0%, transparent 50%);
 }
-.enemies .enemies-grid .enemy-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  border-color: rgba(0, 255, 136, 0.3);
+.enemies .section-header {
+  text-align: center;
+  margin-bottom: 4rem;
 }
-.enemies .enemies-grid .enemy-item .enemy-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  height: 80px;
-  width: 80px;
-  background: rgba(10, 14, 23, 0.5);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-  border: 2px solid;
-}
-.enemies .enemies-grid .enemy-item .enemy-name {
+.enemies .section-header .section-title {
   font-family: "Inter", sans-serif;
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
   margin-bottom: 0.75rem;
   color: #f8f9fa;
 }
-.enemies .enemies-grid .enemy-item .enemy-description {
+.enemies .section-header .section-subtitle {
+  font-size: 1.1rem;
   color: rgba(248, 249, 250, 0.7);
-  font-size: 0.9rem;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+.enemies .enemies-teaser {
+  background: rgba(10, 14, 23, 0.6);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 4rem;
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .enemies .enemies-teaser {
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+.enemies .enemies-teaser .teaser-content {
+  flex: 1;
+}
+.enemies .enemies-teaser .teaser-content h3 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
   margin-bottom: 1rem;
-  line-height: 1.5;
+  color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
-.enemies .enemies-grid .enemy-item .enemy-rarity-container {
-  margin-top: 1rem;
+.enemies .enemies-teaser .teaser-content h3 i {
+  color: #00b4d8;
 }
-.enemies .enemies-grid .enemy-item .enemy-rarity-container .rarity-label {
-  font-size: 0.8rem;
-  color: rgba(248, 249, 250, 0.6);
-  margin-bottom: 0.3rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.enemies .enemies-teaser .teaser-content p {
+  color: rgba(248, 249, 250, 0.9);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
 }
-.enemies .enemies-grid .enemy-item .enemy-rarity-container .enemy-rarity {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.enemies .enemies-teaser .teaser-content p strong {
+  color: #00ff88;
 }
-.enemies .enemies-grid .enemy-item .enemy-golden {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(0, 180, 216, 0.2);
+.enemies .enemies-teaser .teaser-content .teaser-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
 }
-.enemies .enemies-grid .enemy-item .enemy-golden .golden-label {
-  font-size: 0.8rem;
+.enemies .enemies-teaser .teaser-content .teaser-features .feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(248, 249, 250, 0.8);
+  font-size: 0.95rem;
+}
+.enemies .enemies-teaser .teaser-content .teaser-features .feature i {
+  color: #00ff88;
+  font-size: 1.1rem;
+}
+.enemies .enemies-teaser .teaser-visual {
+  flex: 0 0 250px;
+  margin-top: 2rem;
+}
+@media (min-width: 768px) {
+  .enemies .enemies-teaser .teaser-visual {
+    margin-top: 0;
+  }
+}
+.enemies .enemies-teaser .teaser-visual .mystery-card {
+  background: linear-gradient(135deg, rgba(10, 14, 23, 0.8), rgba(5, 8, 17, 0.9));
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  border: 2px dashed rgba(0, 255, 136, 0.4);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% {
+    border-color: rgba(0, 255, 136, 0.4);
+  }
+  50% {
+    border-color: rgba(0, 255, 136, 0.8);
+  }
+}
+.enemies .enemies-teaser .teaser-visual .mystery-card .mystery-icon {
+  font-size: 4rem;
+  margin-bottom: 0.75rem;
+}
+.enemies .enemies-teaser .teaser-visual .mystery-card .mystery-title {
+  font-family: "Inter", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #00ff88;
+  margin-bottom: 0.75rem;
+}
+.enemies .golden-system {
+  background: linear-gradient(135deg, rgba(0, 180, 216, 0.05), rgba(0, 180, 216, 0.02));
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(0, 180, 216, 0.2);
+}
+.enemies .golden-system .system-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.enemies .golden-system .system-header .system-icon {
+  font-size: 2.5rem;
+}
+.enemies .golden-system .system-header .system-title {
+  font-family: "Inter", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #00b4d8;
+}
+.enemies .golden-system .system-content p {
+  color: rgba(248, 249, 250, 0.9);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  font-size: 1.05rem;
+}
+.enemies .golden-system .system-content p strong {
   color: #00b4d8;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 }
-.enemies .enemies-grid .enemy-item .enemy-golden .golden-bonus {
-  font-size: 0.9rem;
-  color: rgba(248, 249, 250, 0.8);
-  margin-top: 0.2rem;
-}
-.enemies .enemies-grid .enemy-item .enemy-golden .golden-bonus strong {
-  color: #00b4d8;
-}
-.enemies .enemies-note {
+.enemies .golden-system .system-content .system-highlight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   background: rgba(0, 180, 216, 0.1);
   border-radius: 10px;
   padding: 1rem;
+  margin-bottom: 1.5rem;
   border-left: 4px solid #00b4d8;
-  max-width: 800px;
-  margin: 0 auto;
 }
-.enemies .enemies-note p {
+.enemies .golden-system .system-content .system-highlight i {
+  color: #00b4d8;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+.enemies .golden-system .system-content .system-highlight span {
   color: rgba(248, 249, 250, 0.9);
-  font-size: 0.95rem;
+  font-size: 1rem;
+}
+.enemies .golden-system .system-content .system-highlight span strong {
+  color: #00b4d8;
+}
+.enemies .golden-system .system-content .system-note {
+  background: rgba(0, 255, 136, 0.05);
+  border-radius: 10px;
+  padding: 1rem;
+  border-left: 4px solid #00ff88;
+}
+.enemies .golden-system .system-content .system-note p {
+  color: rgba(248, 249, 250, 0.9);
+  margin-bottom: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.75rem;
 }
-.enemies .enemies-note p i {
-  color: #00b4d8;
+.enemies .golden-system .system-content .system-note p i {
+  color: #00ff88;
   font-size: 1.2rem;
-  margin-top: 0.1rem;
-}
-.enemies .enemies-note p strong {
-  color: #00b4d8;
-  font-weight: 700;
+  flex-shrink: 0;
 }
 
 .progression {
@@ -688,6 +770,20 @@ body {
 .progression .section-header {
   text-align: center;
   margin-bottom: 4rem;
+}
+.progression .section-header .section-title {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  color: #f8f9fa;
+}
+.progression .section-header .section-subtitle {
+  font-size: 1.1rem;
+  color: rgba(248, 249, 250, 0.7);
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 400;
 }
 .progression .progression-content {
   display: flex;
@@ -723,9 +819,6 @@ body {
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(0, 255, 136, 0.1);
 }
-.progression .progression-content .progression-visual .upgrade-card .card-header .card-icon {
-  font-size: 2rem;
-}
 .progression .progression-content .progression-visual .upgrade-card .card-header .card-title {
   font-family: "Inter", sans-serif;
   font-size: 1.3rem;
@@ -735,38 +828,32 @@ body {
 .progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(1) .upgrade-name::before {
   content: "1. Daño de escopeta";
 }
+.progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(1) .upgrade-icon::before {
+  content: "💥";
+}
 .progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(1) .upgrade-progress {
-  width: calc(100% / 6 * 1 - 10%);
+  width: calc(50% * 1);
+  background: linear-gradient(90deg, #00ff88, #0078d7);
 }
 .progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(2) .upgrade-name::before {
-  content: "2. Velocidad de recarga";
+  content: "2. Cadencia";
+}
+.progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(2) .upgrade-icon::before {
+  content: "⚡";
 }
 .progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(2) .upgrade-progress {
-  width: calc(100% / 6 * 2 - 10%);
+  width: calc(50% * 2);
+  background: linear-gradient(90deg, #00ff88, #0078d7);
 }
 .progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(3) .upgrade-name::before {
-  content: "3. Capacidad de balas";
+  content: "3. Próximamente";
+}
+.progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(3) .upgrade-icon::before {
+  content: "❓";
 }
 .progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(3) .upgrade-progress {
-  width: calc(100% / 6 * 3 - 10%);
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(4) .upgrade-name::before {
-  content: "4. Precisión";
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(4) .upgrade-progress {
-  width: calc(100% / 6 * 4 - 10%);
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(5) .upgrade-name::before {
-  content: "5. Retroceso reducido";
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(5) .upgrade-progress {
-  width: calc(100% / 6 * 5 - 10%);
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(6) .upgrade-name::before {
-  content: "6. Habilidades especiales";
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item:nth-child(6) .upgrade-progress {
-  width: calc(100% / 6 * 6 - 10%);
+  width: 25%;
+  background: linear-gradient(90deg, #00b4d8, rgb(0, 153, 183.6));
 }
 .progression .progression-content .progression-visual .upgrade-card .upgrade-list .upgrade-item {
   display: flex;
@@ -804,28 +891,6 @@ body {
   background: linear-gradient(90deg, #00ff88, #0078d7);
   border-radius: 3px;
   transition: width 0.5s ease;
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-footer {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(0, 255, 136, 0.1);
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-footer .souls-display {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  justify-content: center;
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-footer .souls-display i {
-  color: #00b4d8;
-  font-size: 1.2rem;
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-footer .souls-display span {
-  color: rgba(248, 249, 250, 0.9);
-  font-size: 0.95rem;
-}
-.progression .progression-content .progression-visual .upgrade-card .upgrade-footer .souls-display span strong {
-  color: #00b4d8;
 }
 .progression .progression-content .progression-text {
   flex: 1;
@@ -954,7 +1019,8 @@ body {
   background: linear-gradient(135deg, #00ff88, rgb(0, 216.75, 115.6));
   color: #050811;
 }
-.download .download-buttons .btn.btn-accent .btn-content .btn-title, .download .download-buttons .btn.btn-accent .btn-content .btn-subtitle {
+.download .download-buttons .btn.btn-accent .btn-content .btn-title,
+.download .download-buttons .btn.btn-accent .btn-content .btn-subtitle {
   color: #050811;
 }
 .download .download-info {
@@ -1021,7 +1087,7 @@ body {
 }
 @media (min-width: 768px) {
   .footer .footer-links {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 .footer .footer-links .link-group h4 {
