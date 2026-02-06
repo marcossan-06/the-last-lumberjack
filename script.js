@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // Detectar dispositivo y mostrar botón correspondiente
       function detectDevice() {
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const pcDownload = document.querySelector('a[href="game/TheLastLumberjack.zip"]');
-        const androidDownload = document.querySelector('a[href="game/TheLastLumberjack.apk"]');
+        const pcDownload = document.querySelector('a[href$=".zip"]');
+        const androidDownload = document.querySelector('a[href$=".apk"]');
 
         if (isMobile && androidDownload) {
           androidDownload.style.display = 'flex';
