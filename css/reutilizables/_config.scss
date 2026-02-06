@@ -1,0 +1,40 @@
+// ============================================
+// VARIABLES GLOBALES
+// ============================================
+
+// Colores principales
+$color-primary: #00ff88;
+$color-secondary: #0078d7;
+$color-accent: #00b4d8;
+$color-dark: #0a0e17;
+$color-darker: #050811;
+$color-light: #f8f9fa;
+$color-gray: #8a8f98;
+
+// Colores específicos para plataformas
+$color-windows: #0078d7;
+$color-android: #00ff88;
+
+// Tipografía
+$font-heading: 'Inter', sans-serif;
+$font-body: 'Inter', sans-serif;
+
+// Espaciado
+$spacing-unit: 1rem;
+$spacings: (
+  "xs": $spacing-unit * 0.5,
+  "sm": $spacing-unit * 0.75,
+  "md": $spacing-unit,
+  "lg": $spacing-unit * 1.5,
+  "xl": $spacing-unit * 2,
+  "xxl": $spacing-unit * 3,
+  "xxxl": $spacing-unit * 4
+);
+
+// Breakpoints
+$breakpoints: (
+  "mobile": 480px,
+  "tablet": 768px,
+  "desktop": 1024px,
+  "wide": 1200px
+);

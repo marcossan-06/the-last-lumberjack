@@ -1,0 +1,100 @@
+// ============================================
+// FOOTER
+// ============================================
+
+@use 'reutilizables/config' as *;
+@use 'reutilizables/mixins' as *;
+
+.footer {
+  background: $color-darker;
+  padding: spacing("xxxl") 0 spacing("lg");
+  border-top: 1px solid rgba($color-primary, 0.1);
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: spacing("xxxl");
+    margin-bottom: spacing("xxl");
+
+    @include respond-to("tablet") {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .footer-brand {
+    flex: 1;
+
+    .brand-icon {
+      font-size: 2.5rem;
+      margin-bottom: spacing("sm");
+    }
+
+    .brand-text {
+      font-family: $font-heading;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: spacing("sm");
+      color: $color-light;
+    }
+
+    .brand-tagline {
+      color: rgba($color-light, 0.7);
+      line-height: 1.6;
+      max-width: 300px;
+    }
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: spacing("xl");
+
+    @include respond-to("tablet") {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .link-group {
+      h4 {
+        font-family: $font-heading;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: spacing("md");
+        color: $color-light;
+      }
+
+      a {
+        display: block;
+        color: rgba($color-light, 0.7);
+        text-decoration: none;
+        margin-bottom: spacing("sm");
+        transition: color 0.2s;
+        font-size: 0.95rem;
+
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    padding-top: spacing("lg");
+    border-top: 1px solid rgba($color-light, 0.1);
+    text-align: center;
+
+    p {
+      color: rgba($color-light, 0.7);
+      margin-bottom: spacing("sm");
+      font-size: 0.9rem;
+    }
+
+    .footer-note {
+      color: rgba($color-light, 0.5);
+      font-size: 0.85rem;
+      font-style: italic;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+}

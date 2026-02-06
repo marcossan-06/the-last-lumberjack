@@ -1,0 +1,166 @@
+// ============================================
+// HERO SECTION
+// ============================================
+
+@use 'reutilizables/config' as *;
+@use 'reutilizables/mixins' as *;
+@use 'sass:color';
+
+.hero {
+  position: relative;
+  padding-top: 120px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba($color-darker, 0.9), rgba(9, 20, 39, 0.95));
+    }
+
+    .hero-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: $color-primary;
+      border-radius: 50%;
+      animation: floatParticle calc(15s * var(--i, 1)) infinite linear;
+
+      @keyframes floatParticle {
+        0% {
+          transform: translateY(100vh) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) translateX(calc(100px * var(--i, 1)));
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: spacing("xl") 0;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, $color-primary, color.scale($color-primary, $lightness: -20%));
+    color: $color-darker;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-family: $font-heading;
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: spacing("lg");
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    font-family: $font-heading;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: spacing("md");
+    color: $color-light;
+
+    .title-line {
+      display: block;
+    }
+
+    .title-highlight {
+      color: $color-primary;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        z-index: -1;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: rgba($color-light, 0.8);
+    max-width: 700px;
+    margin: 0 auto spacing("xl");
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: spacing("md");
+    justify-content: center;
+    margin-bottom: spacing("xxxl");
+    flex-wrap: wrap;
+
+    .btn {
+      min-width: 250px;
+      flex-direction: column;
+      padding: spacing("lg") spacing("xl");
+    }
+  }
+
+  .hero-scroll {
+    color: rgba($color-light, 0.6);
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: bounce 2s infinite;
+
+    i {
+      font-size: 1.2rem;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-10px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+  }
+}

@@ -1,0 +1,157 @@
+// ============================================
+// STORY SECTION
+// ============================================
+
+@use 'reutilizables/config' as *;
+@use 'reutilizables/mixins' as *;
+
+.story {
+  padding: spacing("xxxl") 0;
+  background: $color-dark;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba($color-primary, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba($color-secondary, 0.05) 0%, transparent 50%);
+  }
+
+  .story-content {
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to("tablet") {
+      flex-direction: row;
+      gap: spacing("xxxl");
+      align-items: flex-start;
+    }
+
+    .story-text {
+      flex: 1;
+      min-width: 0;
+
+      .story-paragraph {
+        margin-bottom: spacing("xl");
+        opacity: 0;
+        transform: translateY(20px);
+
+        h3 {
+          font-family: $font-heading;
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin-bottom: spacing("sm");
+          color: $color-primary;
+        }
+
+        p {
+          color: rgba($color-light, 0.9);
+          line-height: 1.7;
+          font-size: 1.05rem;
+
+          strong {
+            color: $color-primary;
+            font-weight: 700;
+          }
+        }
+      }
+
+      .story-quote {
+        margin: spacing("xl") 0;
+        padding: spacing("lg");
+        border-left: 4px solid $color-primary;
+        background: rgba($color-darker, 0.5);
+        border-radius: 0 10px 10px 0;
+        font-style: italic;
+        font-size: 1.1rem;
+        color: rgba($color-light, 0.9);
+
+        cite {
+          display: block;
+          margin-top: spacing("sm");
+          font-style: normal;
+          font-weight: 600;
+          color: $color-primary;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .story-visual {
+      flex: 0 0 300px;
+      margin-top: spacing("xl");
+      align-self: flex-start;
+
+      @include respond-to("tablet") {
+        margin-top: 0;
+      }
+
+      .story-card {
+        background: rgba($color-darker, 0.7);
+        border-radius: 15px;
+        padding: spacing("lg");
+        border: 1px solid rgba($color-primary, 0.2);
+
+        .card-header {
+          margin-bottom: spacing("lg");
+          padding-bottom: spacing("md");
+          border-bottom: 1px solid rgba($color-primary, 0.1);
+
+          h4 {
+            font-family: $font-heading;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: $color-light;
+          }
+        }
+
+        .card-step {
+          display: flex;
+          align-items: center;
+          gap: spacing("md");
+          margin-bottom: spacing("md");
+
+          .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, $color-primary, $color-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: $color-darker;
+            flex-shrink: 0;
+          }
+
+          .step-content {
+            h5 {
+              font-family: $font-heading;
+              font-size: 1rem;
+              font-weight: 700;
+              margin-bottom: 0.25rem;
+              color: $color-light;
+            }
+
+            p {
+              font-size: 0.9rem;
+              color: rgba($color-light, 0.7);
+            }
+          }
+        }
+
+        .card-arrow {
+          text-align: center;
+          color: $color-primary;
+          margin: spacing("sm") 0 spacing("sm") 20px;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

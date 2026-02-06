@@ -1,0 +1,154 @@
+// ============================================
+// DOWNLOAD SECTION
+// ============================================
+
+@use 'reutilizables/config' as *;
+@use 'reutilizables/mixins' as *;
+@use 'sass:list';
+@use 'sass:color';
+
+.download {
+  padding: spacing("xxxl") 0;
+  background: $color-darker;
+
+  .download-card {
+    background: linear-gradient(135deg, rgba($color-dark, 0.9), rgba($color-darker, 0.9));
+    border-radius: 20px;
+    padding: spacing("xxxl");
+    text-align: center;
+    border: 1px solid rgba($color-primary, 0.2);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    margin-bottom: spacing("xl");
+
+    .section-title {
+      font-family: $font-heading;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: spacing("sm");
+      color: $color-light;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: rgba($color-light, 0.7);
+    }
+  }
+
+  .download-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: spacing("md");
+    margin-bottom: spacing("xl");
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include respond-to("tablet") {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: spacing("sm");
+      justify-content: center;
+
+      i {
+        color: $color-primary;
+        font-size: 1.2rem;
+      }
+
+      span {
+        font-size: 0.9rem;
+        color: rgba($color-light, 0.8);
+      }
+    }
+  }
+
+  .download-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: spacing("md");
+    margin-bottom: spacing("xl");
+
+    @include respond-to("tablet") {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .btn {
+      @include btn-base;
+      text-align: left;
+      padding: spacing("lg");
+      min-width: 300px;
+
+      &.btn-large {
+        .btn-content {
+          margin-left: spacing("md");
+          text-align: left;
+
+          .btn-title {
+            display: block;
+            font-weight: 700;
+            font-size: 1.1rem;
+          }
+
+          .btn-subtitle {
+            display: block;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 0.25rem;
+          }
+        }
+      }
+
+      &.btn-primary {
+        // Windows - Azul
+        background: linear-gradient(135deg, $color-windows, color.scale($color-windows, $lightness: -15%));
+        color: $color-light;
+      }
+
+      &.btn-accent {
+        // Android - Verde
+        background: linear-gradient(135deg, $color-android, color.scale($color-android, $lightness: -15%));
+        color: $color-darker;
+
+        .btn-content {
+
+          .btn-title,
+          .btn-subtitle {
+            color: $color-darker;
+          }
+        }
+      }
+    }
+  }
+
+  .download-info {
+    background: rgba($color-primary, 0.1);
+    border-radius: 10px;
+    padding: spacing("md");
+    border-left: 4px solid $color-primary;
+    max-width: 600px;
+    margin: 0 auto;
+
+    p {
+      color: rgba($color-light, 0.8);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: flex-start;
+      gap: spacing("sm");
+
+      i {
+        color: $color-primary;
+        font-size: 1.2rem;
+        margin-top: 0.1rem;
+      }
+    }
+  }
+}

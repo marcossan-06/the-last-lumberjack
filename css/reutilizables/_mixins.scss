@@ -1,0 +1,84 @@
+@use 'sass:map';
+@use 'sass:color';
+@use 'config' as *;
+
+// Mixin para responsive
+@mixin respond-to($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` no encontrado.";
+  }
+}
+
+// Función para obtener spacing
+@function spacing($size) {
+  @if map.has-key($spacings, $size) {
+    @return map.get($spacings, $size);
+  } @else {
+    @warn "Tamaño `#{$size}` no encontrado en $spacings.";
+    @return $spacing-unit;
+  }
+}
+
+// Placeholder selector para botones
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.75rem;
+  border-radius: 12px;
+  font-family: $font-heading;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  border: none;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    z-index: -1;
+    transition: opacity 0.3s;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+
+    &::before {
+      opacity: 0.8;
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  i {
+    margin-right: 0.5rem;
+    font-size: 1.1em;
+  }
+
+  .btn-subtext {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.9;
+    margin-top: 0.2rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+}

@@ -1,0 +1,54 @@
+// ============================================
+// ESTILOS BASE
+// ============================================
+
+@use 'config' as *;
+@use 'mixins' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-body;
+  background-color: $color-darker;
+  color: $color-light;
+  line-height: 1.6;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(9, 20, 39, 0.8) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(41, 10, 49, 0.6) 0%, transparent 20%);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 spacing("md");
+
+  @include respond-to("wide") {
+    padding: 0;
+  }
+}
+
+// Animación de aparición
+.animate-in {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,218 @@
+// ============================================
+// PROGRESSION SECTION
+// ============================================
+
+@use 'reutilizables/config' as *;
+@use 'reutilizables/mixins' as *;
+@use 'sass:list';
+@use 'sass:color';
+
+
+.progression {
+  padding: spacing("xxxl") 0;
+  background: $color-dark;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      radial-gradient(circle at 30% 20%, rgba($color-primary, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba($color-secondary, 0.05) 0%, transparent 50%);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: spacing("xxxl");
+
+    .section-title {
+      font-family: $font-heading;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: spacing("sm");
+      color: $color-light;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: rgba($color-light, 0.7);
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 400;
+    }
+  }
+
+  .progression-content {
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to("desktop") {
+      flex-direction: row;
+      gap: spacing("xxxl");
+    }
+
+    .progression-visual {
+      flex: 0 0 350px;
+      margin-bottom: spacing("xl");
+
+      @include respond-to("desktop") {
+        margin-bottom: 0;
+      }
+
+      .upgrade-card {
+        background: rgba($color-darker, 0.8);
+        border-radius: 15px;
+        padding: spacing("lg");
+        border: 1px solid rgba($color-primary, 0.2);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+
+        .card-header {
+          display: flex;
+          align-items: center;
+          gap: spacing("md");
+          margin-bottom: spacing("lg");
+          padding-bottom: spacing("md");
+          border-bottom: 1px solid rgba($color-primary, 0.1);
+
+          .card-title {
+            font-family: $font-heading;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: $color-light;
+          }
+        }
+
+        .upgrade-list {
+          // Lista base de las mejoras
+          $base-upgrades: "Daño de escopeta", "Cadencia";
+          $base-icons: "💥", "⚡";
+
+          // Uso list.join() para AÑADIR una de proximamente
+          $all-upgrades: list.join($base-upgrades, ("Próximamente"), $separator: comma);
+          $all-icons: list.join($base-icons, ("❓"), $separator: comma);
+
+          // Saco el count de todos los elementos
+          $total-upgrades: list.length($all-upgrades);
+
+          // Itero
+          @for $i from 1 through $total-upgrades {
+            .upgrade-item:nth-child(#{$i}) {
+              .upgrade-name::before {
+                // Muestro el nombre correcto
+                content: "#{$i}. "+list.nth($all-upgrades, $i);
+              }
+
+              .upgrade-icon::before {
+                // Cojo el icono de la lista de iconos
+                content: list.nth($all-icons, $i);
+              }
+
+              // El progreso se basa en el índice de la lista
+              @if $i <= list.length($base-upgrades) {
+
+                // Para mejoras base: progreso normal (50%, 100%)
+                .upgrade-progress {
+                  width: calc(50% * #{$i});
+                  background: linear-gradient(90deg, $color-primary, $color-secondary);
+                }
+              }
+
+              @else {
+
+                // Para la mejora añadida con join, uso un progreso especial (25%)
+                .upgrade-progress {
+                  width: 25%;
+                  background: linear-gradient(90deg, $color-accent, color.scale($color-accent, $lightness: -15%));
+                }
+              }
+            }
+          }
+
+          .upgrade-item {
+            display: flex;
+            align-items: center;
+            gap: spacing("md");
+            padding: spacing("sm") 0;
+            border-bottom: 1px solid rgba($color-light, 0.1);
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .upgrade-icon {
+              color: $color-primary;
+              font-size: 1.2rem;
+              width: 30px;
+              text-align: center;
+            }
+
+            .upgrade-info {
+              flex: 1;
+
+              .upgrade-name {
+                font-weight: 600;
+                margin-bottom: 0.25rem;
+                color: $color-light;
+                font-size: 0.95rem;
+              }
+
+              .upgrade-progress-container {
+                height: 6px;
+                background: rgba($color-light, 0.1);
+                border-radius: 3px;
+                overflow: hidden;
+
+                .upgrade-progress {
+                  height: 100%;
+                  background: linear-gradient(90deg, $color-primary, $color-secondary);
+                  border-radius: 3px;
+                  transition: width 0.5s ease;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .progression-text {
+      flex: 1;
+
+      .progression-feature {
+        margin-bottom: spacing("xl");
+        opacity: 0;
+        transform: translateY(20px);
+
+        h3 {
+          font-family: $font-heading;
+          font-size: 1.4rem;
+          font-weight: 700;
+          margin-bottom: spacing("sm");
+          color: $color-primary;
+          display: flex;
+          align-items: center;
+          gap: spacing("sm");
+
+          i {
+            font-size: 1.2rem;
+          }
+        }
+
+        p {
+          color: rgba($color-light, 0.9);
+          line-height: 1.7;
+          font-size: 1.05rem;
+
+          strong {
+            color: $color-primary;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
