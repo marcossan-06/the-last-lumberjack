@@ -87,6 +87,7 @@
         }
 
         .upgrade-list {
+          // VARIABLES LOCALES
           // Lista base de las mejoras
           $base-upgrades: "Daño de escopeta", "Cadencia";
           $base-icons: "💥", "⚡";
@@ -116,7 +117,7 @@
 
                 // Para mejoras base: progreso normal (50%, 100%)
                 .upgrade-progress {
-                  width: calc(50% * #{$i});
+                  width: calc(50% * #{$i}); // USO CALC PARA PROGRESO DINÁMICO
                   background: linear-gradient(90deg, $color-primary, $color-secondary);
                 }
               }

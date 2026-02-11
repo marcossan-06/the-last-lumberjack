@@ -1,4 +1,13 @@
 @charset "UTF-8";
+.download .download-buttons .btn, .btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.download .download-buttons .btn:hover, .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -74,7 +83,6 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -91,10 +99,6 @@ body {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   z-index: -1;
   transition: opacity 0.3s;
-}
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 .btn:hover::before {
   opacity: 0.8;
@@ -1024,7 +1028,6 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -1044,10 +1047,6 @@ body {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   z-index: -1;
   transition: opacity 0.3s;
-}
-.download .download-buttons .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 .download .download-buttons .btn:hover::before {
   opacity: 0.8;
