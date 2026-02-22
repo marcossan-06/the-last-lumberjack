@@ -38,7 +38,7 @@
       height: 4px;
       background: $color-primary;
       border-radius: 50%;
-      animation: floatParticle calc(15s * var(--i, 1)) infinite linear;
+      animation: floatParticle calc(15s * var(--i, 1)) infinite linear; // USO CALC PARA PARTÍCULAS SUTÍLES EN EL HERO
 
       @keyframes floatParticle {
         0% {
